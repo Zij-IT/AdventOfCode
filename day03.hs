@@ -1,42 +1,27 @@
-import qualified Data.Map.Strict as M
-import Data.List (group, sort)
-import Data.Bifunctor (bimap)
-import Data.Tuple (fst)
-import Data.Bits (xor, (.&.))
+import Data.List (intersect)
+import Data.Char (isUpper)
 
-type Backpack = M.Map Char Int
+type Backpack = String
 
 priority :: Char -> Int
-priority = (\x -> x - fromEnum 'A' + 1 - if wasUpper x then 6 else 0) . twiddleCase . fromEnum
-  where
-    wasUpper :: Int -> Bool
-    wasUpper i = i .&. 32 == 32
-    
-    twiddleCase :: Int -> Int
-    twiddleCase = xor 32
+priority c = if isUpper c then fromEnum c - 65 + 27 else fromEnum c - 97 + 1
 
 clean :: String -> [(Backpack, Backpack)]
-clean = map toBackpacks . lines
+clean = map halve . lines
   where
-    toBackpacks :: String -> (Backpack, Backpack)
-    toBackpacks = bimap toBackpack toBackpack . halve
-
-    toBackpack :: String -> Backpack
-    toBackpack = M.fromAscList . map (\x -> (head x, length x)) . group . sort     
-
     halve :: String -> (String, String)
     halve s = splitAt half s
-      where half = (`div` 2) . length $ s
+      where half = length s `div` 2
   
 partOne :: [(Backpack, Backpack)] -> Int
-partOne = sum . concatMap (map (priority. fst) . M.toList . uncurry M.intersection)
+partOne = sum . map (priority . head . uncurry intersect)
 
 partTwo :: [(Backpack, Backpack)] -> Int
 partTwo [] = 0
 partTwo (x:y:z:ls) = priority (getBadge [x,y,z]) + partTwo ls 
   where 
     getBadge :: [(Backpack, Backpack)] -> Char
-    getBadge = fst . head . M.toList . foldl1 M.intersection . map (uncurry M.union)
+    getBadge = head . foldl1 intersect . map (uncurry (++))
 
 main :: IO ()
 main = do
