@@ -7,11 +7,11 @@ partOne :: [[Int]] -> Int
 partOne = maximum . map sum
 
 partTwo :: [[Int]] -> Int
-partTwo = sum . take 3 . sortBy (\a b -> compare b a) . map sum
+partTwo = sum . take 3 . sortBy (flip compare) . map sum
 
 main :: IO ()
 main = do
   input <- readFile "./input/day01.txt"
   let cleanInput = clean input in do
-    putStrLn . show $ partOne cleanInput
-    putStrLn . show $ partTwo cleanInput
+    print $ partOne cleanInput
+    print $ partTwo cleanInput

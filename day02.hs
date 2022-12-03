@@ -56,7 +56,7 @@ clean s toB = map toPair . lines $ s
       ('A':_:me) -> (Rock, toB me)
       ('B':_:me) -> (Paper, toB me)
       ('C':_:me) -> (Scissors, toB me)
-      otherwise  -> error $ "Malformed input: '" ++ line ++ "'"
+      _          -> error $ "Malformed input: '" ++ line ++ "'"
 
 main :: IO ()
 main  = do
