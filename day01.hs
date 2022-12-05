@@ -13,5 +13,5 @@ main :: IO ()
 main = do
   input <- readFile "./input/day01.txt"
   let cleanInput = clean input in do
-    print $ partOne cleanInput
-    print $ partTwo cleanInput
+    putStrLn . ("Part 1:" ++) . show $ partOne cleanInput
+    putStrLn . ("Part 2:" ++) . show $ partTwo cleanInput

@@ -50,7 +50,7 @@ void part_one(char const* input, long length) {
     }
   }
   
-  printf("Score for part 1: %lld\n", score);
+  printf("Part 1: %lld\n", score);
 } 
 
 void part_two(char const* input, long length) {
@@ -70,7 +70,7 @@ void part_two(char const* input, long length) {
     }
   }
   
-  printf("Score for part 1: %lld\n", score);
+  printf("Part 2: %lld\n", score);
 }
 
 int main(int argc, char* argv[]) {
@@ -90,9 +90,13 @@ int main(int argc, char* argv[]) {
     return 1;
   } 
   
-  fread(string, 1, length, file);
-  string[length] = '\n';
+  if (fread(string, 1, length, file) != length) {
+    fprintf(stderr, "File read failed...");
+    return 1;
+  } 
 
+  // Because fread doesn't null terminate apparently
+  string[length] = '\n';
   fclose(file);
      
   part_one(string, length);

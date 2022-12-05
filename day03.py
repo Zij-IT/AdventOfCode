@@ -29,5 +29,5 @@ chunked = chunk(processed, 3);
 part_one = score_list([[z for z in x if z in y] for (x, y) in splitted]) 
 part_two = score_list([[ch for ch in x if ch in y and ch in z] for [x, y, z] in chunked])
 
-print(part_one)
-print(part_two)
+print("Part 1: " + str(part_one))
+print("Part 2: " + str(part_two))

@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 #[derive(Debug, Clone, Copy)]
 struct Crate(char);
 
@@ -9,8 +11,8 @@ struct Move {
 }
 
 fn parse_crates(input: &str) -> Vec<Vec<Crate>> {
-    let mut height = input.lines().count() - 1;
-    let mut width = input.lines().next().map(str::len).unwrap() / 4 + 1;
+    let height = input.lines().count() - 1;
+    let width = input.lines().next().map(str::len).unwrap() / 4 + 1;
 
     let mut crates = Vec::with_capacity(input.len() / 3);
     let mut input = input.chars();
@@ -35,8 +37,6 @@ fn parse_crates(input: &str) -> Vec<Vec<Crate>> {
     for x in 0..width {
         for y in 0..height {
             let input_idx = x + y * width;
-            let output_idx = y + x * height;
-
             out[x][y] = crates[input_idx];
         }
     }
@@ -87,7 +87,7 @@ fn part_one(mut crates: Vec<Vec<Crate>>, moves: Vec<Move>) {
         .map(|Crate(x)| x)
         .collect::<String>();
 
-    println!("{ans}");
+    println!("Part 1: {ans}");
 }
 
 fn part_two(mut crates: Vec<Vec<Crate>>, moves: Vec<Move>) {
@@ -107,7 +107,7 @@ fn part_two(mut crates: Vec<Vec<Crate>>, moves: Vec<Move>) {
         .map(|Crate(x)| x)
         .collect::<String>();
 
-    println!("{ans}");
+    println!("Part 2: {ans}");
 }
 
 fn main() {

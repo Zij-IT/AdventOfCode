@@ -25,10 +25,10 @@ void main() async {
   List<RangePair> copy = List.from(input);
 
   copy.retainWhere(fullyOverlaps);
-  print(copy.length);
+  print("Part 1: " + copy.length.toString());
 
   list.retainWhere(partiallyOverlaps);
-  print(list.length);
+  print("Part 2: " + list.length.toString());
 }
 
 bool partiallyOverlaps(RangePair rp) {
